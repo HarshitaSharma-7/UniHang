@@ -27,27 +27,14 @@ function Chat() {
 
   useEffect(() => {
 
-    loadPlan();
+  loadPlan();
+  loadOldMessages();
 
-    loadOldMessages();
+  socket.emit("joinRoom", id);
 
-    socket.emit("joinRoom", id);
+// eslint-disable-next-line react-hooks/exhaustive-deps
 
-
-    const listener = (data) => {
-
-      setMessages((prev) => [...prev, data]);
-
-    };
-
-
-    socket.on("receiveMessage", listener);
-
-
-    return () => socket.off("receiveMessage", listener);
-
-
-  }, [id]);
+}, [id]);
 
 
   const loadPlan = async () => {
